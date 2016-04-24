@@ -4,6 +4,8 @@ using System.Web.Http;
 using System;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Owin.Cors;
+using AngularJSAuthentication.Providers;
+using AngularJSAuthentication.API.Providers;
 
 //http://bitoftech.net/2014/06/01/token-based-authentication-asp-net-web-api-2-owin-asp-net-identity/
 [assembly: OwinStartup(typeof(AngularJSAuthentication.API.Startup))]
@@ -26,8 +28,9 @@ namespace AngularJSAuthentication.API
 			{
 				AllowInsecureHttp = true,
 				TokenEndpointPath = new PathString("/token"),
-				AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-				Provider = new SimpleAuthorizationServerProvider()
+				AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+				Provider = new SimpleAuthorizationServerProvider(),
+				RefreshTokenProvider = new SimpleRefreshTokenProvider()
 			};
 
 			// Token Generation
